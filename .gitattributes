@@ -1,0 +1,10 @@
+*.meta binary
+*.png binary
+*.asset binary
+*.prefab binary
+*.mat binary
+*.unity binary
+*.anim binary
+*.controller binary
+*.data binary
+*.bin binary
