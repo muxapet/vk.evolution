@@ -3,9 +3,11 @@
    <head>
         <title>Downloading</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <style>
+            body{overflow: hidden;}
             body > div {
+                background: #000000;
                 position: absolute;
                 top: 0;
                 bottom: 0;
@@ -19,7 +21,7 @@
         </style>
     </head>
   <body>
-    <div class="emscripten" id="status">Downloading...</div>
+     <div class="emscripten" id="status" style="display:none">Downloading...</div>
 
     <div class="emscripten">
       <progress value="0" max="100" id="progress"></progress>
@@ -28,14 +30,31 @@
     <div class="emscripten_border">
       <canvas class="emscripten" id="canvas" align="center" oncontextmenu="event.preventDefault()"></canvas>
     </div>
+    <div id="splash" style="margin:0 auto;height:100%;overflow:hidden">
+      <img src="./splash.png" style="display:block;height: 100%;">
+      <img src="./loader.gif" id="loader" style="position:absolute;top:90%;left:50%;margin-left:-50px;width:100px">
+      <div id="error" style="display:none;position:absolute;top:80%;left:0;width:100%;color:#fff;font-size:26px;text-align:center">Произошла ошибка</div>
+    </div>
 
     <script type='text/javascript'>
       var statusElement = document.getElementById('status');
       var progressElement = document.getElementById('progress');
+      var splash = document.getElementById('splash');
+      var loader = document.getElementById('loader');
+      var errorLabel = document.getElementById('error');
+      var canvasDiv = document.getElementById("canvas");
 
+      canvasDiv.style.height = "100%";
+      isError = false;
 
-   var mydiv = document.getElementById("canvas");
-    mydiv.style.width = '100%';
+      showErrorSplash = function(text) {
+            console.error(text);
+            document.getElementById('splash').style.display = "block"
+            document.getElementById('error').style.display = "block"
+            document.getElementById('loader').style.display = "none"
+            isError = true;
+      }
+
 
       var Module = {
       	Zlib:
@@ -71,15 +90,18 @@ t.r=function(a,b){var c;this.G||$(this);c=this.G[a];c===r&&l(Error(a+" not found
 e+g);break;case sa.M:m=(new I(this.input,{index:e,bufferSize:k.J})).r();break;default:l(Error("unknown compression type"))}if(this.ba){var u=r,n,E="number"===typeof u?u:u=0,A=m.length;n=-1;for(E=A&7;E--;++u)n=n>>>8^C[(n^m[u])&255];for(E=A>>3;E--;u+=8)n=n>>>8^C[(n^m[u])&255],n=n>>>8^C[(n^m[u+1])&255],n=n>>>8^C[(n^m[u+2])&255],n=n>>>8^C[(n^m[u+3])&255],n=n>>>8^C[(n^m[u+4])&255],n=n>>>8^C[(n^m[u+5])&255],n=n>>>8^C[(n^m[u+6])&255],n=n>>>8^C[(n^m[u+7])&255];p=(n^4294967295)>>>0;k.p!==p&&l(Error("wrong crc: file=0x"+
 k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a};function wa(a,b,c){c^=a.s(b);a.k(b,c);return c}t.k=U.prototype.k;t.S=U.prototype.T;t.s=U.prototype.s;v("Zlib.Unzip",V);v("Zlib.Unzip.prototype.decompress",V.prototype.r);v("Zlib.Unzip.prototype.getFilenames",V.prototype.Y);v("Zlib.Unzip.prototype.setPassword",V.prototype.L);}).call(this),
       	preRun: [],
-        postRun: [],
+        postRun: [
+          function() { 
+            setTimeout('if(!isError)splash.style.display = "none"', 500);
+           }
+        ],
         print: function() {},
         printErr: function(text) {
           if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
           if (0) { // XXX disabled for safety typeof dump == 'function') {
             dump(text + '\n'); // fast, straight to the real console
           } else {
-            console.error(text);
-             if( typeof(text) === "string" && text.toUpperCase().indexOf("ERROR") >= 0) alert(text);
+            showErrorSplash(text);
           }
         },
         canvas: (function() {
@@ -88,7 +110,9 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
           // As a default initial behavior, pop up an alert when webgl context is lost. To make your
           // application robust, you may want to override this behavior before shipping!
           // See http://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15.2
-          canvas.addEventListener("webglcontextlost", function(e) { alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); }, false);
+          canvas.addEventListener("webglcontextlost", function(e) { 
+            alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); 
+          }, false);
 
           return canvas;
         })(),
@@ -114,6 +138,7 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
           this.totalDependencies = Math.max(this.totalDependencies, left);
           Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.', 
             this.totalDependencies-left, this.totalDependencies);
+
         }
       };
       Module.setStatus('Downloading...', 0, 0);
@@ -123,9 +148,13 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
         Module.setStatus = function(text) {
           if (text) Module.printErr('[post-exception status] ' + text);
         };
+
+        showErrorSplash(text)
+
       };
     </script>
     <script>
+
           Module.setStatus('Downloading application...', 0, 0);
           var xml = new XMLHttpRequest();
           xml.onreadystatechange = function () {
@@ -150,7 +179,7 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
                     else
                     if (filenames[i].indexOf('.mem') > 0)
                     {
-                      var memoryInitializer = 'HumanEvolutionCorona.html.mem';
+                      var memoryInitializer = 'Evolution.html.mem';
                       if (typeof Module['locateFile'] === 'function') {
                         memoryInitializer = Module['locateFile'](memoryInitializer);
                       } else if (Module['memoryInitializerPrefixURL']) {
@@ -175,7 +204,7 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
           			break;
           	}
           };
-          xml.open('GET', "HumanEvolutionCorona.bin", true);
+          xml.open('GET', "Evolution.bin", true);
           xml.responseType = 'arraybuffer';
           xml.send(null);
 </script>
