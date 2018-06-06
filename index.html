@@ -112,7 +112,6 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
           // See http://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15.2
           canvas.addEventListener("webglcontextlost", function(e) { 
             alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); 
-            showErrorSplash('WebGL context lost. You will need to reload the page.')
           }, false);
 
           return canvas;
@@ -180,7 +179,7 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
                     else
                     if (filenames[i].indexOf('.mem') > 0)
                     {
-                      var memoryInitializer = 'HumanEvolutionCorona.html.mem';
+                      var memoryInitializer = 'Evolution.html.mem';
                       if (typeof Module['locateFile'] === 'function') {
                         memoryInitializer = Module['locateFile'](memoryInitializer);
                       } else if (Module['memoryInitializerPrefixURL']) {
@@ -195,19 +194,17 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
                     else
                     {
                       alert('Invalid .bin file');
-                      showErrorSplash("Invalid .bin file")
                     }
                   }
           			}
                 else
                 {
                   alert('Failed to load .bin file');
-                  showErrorSplash("Failed to load .bin file")
                 }
           			break;
           	}
           };
-          xml.open('GET', "HumanEvolutionCorona.bin", true);
+          xml.open('GET', "Evolution.bin", true);
           xml.responseType = 'arraybuffer';
           xml.send(null);
 </script>
