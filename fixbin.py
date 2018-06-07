@@ -13,7 +13,8 @@ shortname = basename(filename).replace(".bin", "")
 
 with zipfile.ZipFile(filename) as temp:
     with temp.open('{0}.js'.format(shortname)) as myfile:
-        newfile = myfile.read().replace("window.innerHeight", "getActualHeight()").replace("window.innerWidth", "getActualWidth()")
+        newfile = myfile.read().decode('UTF-8')
+        newfile = newfile.replace('window.innerHeight', 'getActualHeight()').replace('window.innerWidth', 'getActualWidth()')
 
     with zipfile.ZipFile('{0}.new'.format(filename), 'w', compression=zipfile.ZIP_DEFLATED) as zipFile:
         zipFile.writestr('{0}.js'.format(shortname), newfile)
