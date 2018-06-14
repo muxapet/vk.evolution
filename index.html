@@ -5,7 +5,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <style>
-            html, body {margin: 0; height: 100%; overflow: hidden;background: #000000}
+            html {margin: 0; height: 100%; overflow: hidden; background: #000000}
+            body {margin: 0; height: 100%; overflow: hidden; background: #000000}
             body > div {
                 background: #000000;
                 position: absolute;
@@ -28,8 +29,8 @@
       <progress value="0" max="100" id="progress"></progress>
     </div>
     
-    <div class="emscripten_border">
-      <canvas class="emscripten" id="canvas" style="position: absolute; top: 0" align="center" oncontextmenu="event.preventDefault()"></canvas>
+    <div class="emscripten_border" style="overflow: hidden;">
+      <canvas class="emscripten" id="canvas" style="overflow: hidden; position: absolute; top: 0" align="center" oncontextmenu="event.preventDefault()"></canvas>
     </div>
     <div id="splash" style="position:absolute;margin:0 auto;height:100%;overflow:hidden">
       <img src="./splash.png" style="display:block;margin:0 auto;width:100%;height:100%;object-fit:cover;overflow:hidden">
@@ -54,7 +55,7 @@
             console.error(text);
             document.getElementById('splash').style.display = "block"
             document.getElementById('error').style.display = "block"
-            document.getElementById('loader').style.display = "none"
+            //document.getElementById('loader').style.display = "none"
             document.getElementById('error').innerHTML = text
             isError = true;
       }
