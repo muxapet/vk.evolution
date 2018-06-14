@@ -19,6 +19,15 @@
                 align-items: center;
                 flex-wrap: wrap;
             }
+            #progress {
+                width: 0%;
+                height: 10px;
+                background-color: #f00;
+                position: absolute;
+                top: 100%;
+                left: 0%;
+                margin-top: -10px;
+            }
         </style>
         <link rel="stylesheet" type="text/css" href="/loader/loaders.min.css"/>
     </head>
@@ -38,7 +47,9 @@
         <div></div><div></div><div></div>
       </div>
       <div id="error" style="display:none;position:absolute;top:80%;left:0%;width:100%;color:#fff;font-size:26px;text-align:center">Произошла ошибка</div>
+      <div id="progress"></div>
     </div>
+
 
     <script type='text/javascript'>
       var statusElement = document.getElementById('status');
@@ -58,6 +69,10 @@
             document.getElementById('loader').style.display = "none"
             document.getElementById('error').innerHTML = text
             isError = true;
+      }
+
+      setProgress = function(value) {
+        progressElement.style.width = value + "%";
       }
 
 
@@ -129,12 +144,13 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
           if (now - Module.setStatus.last < 1000) return; // if this is a progress update, skip it if too soon
 
             Module.setStatus.last = now;
-            progressElement.value = current;
-            progressElement.max = total;
+            //progressElement.value = current;
+            //progressElement.max = total;
+            setProgress(current/total*100);
             progressElement.hidden = false;
           } else {
-            progressElement.value = null;
-            progressElement.max = null;
+            //progressElement.value = null;
+            //progressElement.max = null;
             progressElement.hidden = true;
           }
           statusElement.innerHTML = text;
