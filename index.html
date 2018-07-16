@@ -40,7 +40,6 @@
         <link rel="stylesheet" type="text/css" href="/loader/loaders.min.css"/>
     </head>
   <body>
-     <div class="mainwrapper">
        <div class="emscripten" id="status" style="display:none">Downloading...</div>
 
       <div class="emscripten">
@@ -58,7 +57,6 @@
         <div id="error" style="display:none;position:absolute;top:80%;left:0%;width:100%;color:#fff;font-size:26px;text-align:center">Произошла ошибка</div>
         <div id="progress"></div>
       </div>
-    </div>
 
 
     <script type='text/javascript'>
@@ -84,24 +82,6 @@
       setProgress = function(value) {
         //progressElement.style.width = value + "%";
       }
-
-      // splash.addEventListener('touchstart', function (event) {
-      //     this.allowUp = (this.scrollTop > 0);
-      //     this.allowDown = (this.scrollTop < this.scrollHeight - this.clientHeight);
-      //     this.slideBeginY = event.pageY;
-      // });
-
-      // splash.addEventListener('touchmove', function (event) {
-      //     var up = (event.pageY > this.slideBeginY);
-      //     var down = (event.pageY < this.slideBeginY);
-      //     this.slideBeginY = event.pageY;
-      //     if ((up && this.allowUp) || (down && this.allowDown)) {
-      //         event.stopPropagation();
-      //     }
-      //     else {
-      //         event.preventDefault();
-      //     }
-      // });
 
 
       var Module = {
