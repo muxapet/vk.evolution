@@ -88,14 +88,12 @@
       setProgress = function(value){
         progressValue = value
         console.log("loaded: " + progressValue)
-        console.log(progressElement)
         progressElement.style.width = progressValue + "%";
       }
 
       addProgress = function(value){
         progressValue = Math.min(100, progressValue + value)
         console.log("loaded: " + progressValue)
-        console.log(progressElement)
         progressElement.style.width = progressValue + "%";
       }
 
