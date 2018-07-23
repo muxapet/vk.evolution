@@ -176,6 +176,7 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
             pr1 = text.split("(")[1]
             pr2 = pr1.split("/")
             console.log(pr2[0] + "//" + pr2[1].replace(")", ""))
+            console.log(current + "/-/" + total)
             value = (pr2[0] / pr2[1].replace(")", "")) * prForDownload
             setStatus(prForUnpack + value)
           }
