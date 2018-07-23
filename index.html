@@ -79,8 +79,16 @@
             isError = true;
       }
 
-      setProgress = function(value) {
-        //progressElement.style.width = value + "%";
+      var progressValue = 0
+
+      setProgress = function(value){
+        progressValue = value
+        console.log("loaded: " + progressValue)
+      }
+
+      addProgress = function(value){
+        progressValue += value
+        console.log("loaded: " + progressValue)
       }
 
 
@@ -154,7 +162,6 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
             Module.setStatus.last = now;
             //progressElement.value = current;
             //progressElement.max = total;
-            setProgress(current/total*100);
             progressElement.hidden = false;
           } else {
             //progressElement.value = null;
@@ -166,6 +173,7 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
         totalDependencies: 0,
         monitorRunDependencies: function(left) {
           this.totalDependencies = Math.max(this.totalDependencies, left);
+          setProgress(60+40*(this.totalDependencies-left)/this.totalDependencies)
           Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.', 
             this.totalDependencies-left, this.totalDependencies);
 
@@ -192,6 +200,7 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
           }
 
           Module.setStatus('Downloading application...', 0, 0);
+          setProgress(0)
           var xml = new XMLHttpRequest();
           xml.onreadystatechange = function () {
           	switch (this.readyState) {
@@ -232,6 +241,7 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
                       //alert('Invalid .bin file');
                       //showErrorSplash("Invalid .bin file")
                     }
+                    setProgress(15*i)
                   }
           			}
                 else
