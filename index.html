@@ -60,8 +60,9 @@
 
 
     <script type='text/javascript'>
-      var prForUnpack = 40
-      var prForDeps = 40
+      var prForUnpack = 30
+      var prForDeps = 10
+      var prForDownload = 40
 
       var statusElement = document.getElementById('status');
       var progressElement = document.getElementById('progressBar');
@@ -134,8 +135,8 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
       	preRun: [],
         postRun: [
           function() { 
-            setProgress(prForDeps+prForUnpack);
-            progressInterval = setInterval('addProgress('+((100-prForDeps-prForUnpack)/10)+')', 50);
+            setProgress(prForDownload+prForDeps+prForUnpack);
+            progressInterval = setInterval('addProgress('+((100-prForDeps-prForUnpack-prForDownload)/10)+')', 50);
             setTimeout('setProgress(100);if(!isError)splash.style.display = "none";clearInterval(progressInterval)', 500);
            }
         ],
@@ -171,11 +172,17 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
           } else {
           }
           statusElement.innerHTML = text;
+          if(text.startsWith("Downloading data")) {
+            pr1 = text.split("(")
+            pr2 = pr1.split("/").replace(")", "")
+            console.log(pr1 + "//" + pr2)
+          }
+          //Downloading data... (5371304/6258529)
         },
         totalDependencies: 0,
         monitorRunDependencies: function(left) {
           this.totalDependencies = Math.max(this.totalDependencies, left);
-          setProgress(prForUnpack+prForDeps*(this.totalDependencies-left)/this.totalDependencies)
+          setProgress(prForUnpack+prForDownload+prForDeps*(this.totalDependencies-left)/this.totalDependencies)
           Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.', 
             this.totalDependencies-left, this.totalDependencies);
 
