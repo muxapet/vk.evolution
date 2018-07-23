@@ -164,18 +164,20 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
         })(),
         setStatus: function(text, current, total) {
           if (total > 0) {
-        if (Module.setStatus.hasOwnProperty('last') == false) Module.setStatus.last = 0;
-          var now = Date.now();
-          if (now - Module.setStatus.last < 1000) return; // if this is a progress update, skip it if too soon
+            if (Module.setStatus.hasOwnProperty('last') == false) Module.setStatus.last = 0;
+            var now = Date.now();
+            if (now - Module.setStatus.last < 1000) return; // if this is a progress update, skip it if too soon
 
             Module.setStatus.last = now;
           } else {
           }
           statusElement.innerHTML = text;
           if(text.startsWith("Downloading data")) {
-            pr1 = text.split("(")
-            pr2 = pr1.split("/").replace(")", "")
-            console.log(pr1 + "//" + pr2)
+            pr1 = text.split("(")[1]
+            pr2 = pr1.split("/")
+            console.log(pr2[0] + "//" + pr2[1].replace(")", ""))
+            value = (pr2[0] / pr2[1].replace(")", "")) * prForDownload
+            setStatus(prForUnpack + value)
           }
           //Downloading data... (5371304/6258529)
         },
