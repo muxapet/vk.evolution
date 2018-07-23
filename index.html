@@ -34,7 +34,7 @@
                 top: 100%;
                 left: 0%;
                 margin-top: -10px;
-                display: none;
+                display: block;
             }
         </style>
         <link rel="stylesheet" type="text/css" href="/loader/loaders.min.css"/>
@@ -85,11 +85,13 @@
       setProgress = function(value){
         progressValue = value
         console.log("loaded: " + progressValue)
+        progressElement.style.width = progressValue + "%";
       }
 
       addProgress = function(value){
         progressValue = Math.min(100, progressValue + value)
         console.log("loaded: " + progressValue)
+        progressElement.style.width = progressValue + "%";
       }
 
 
@@ -131,7 +133,7 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
           function() { 
             setProgress(80);
             progressInterval = setInterval('addProgress(2)', 50);
-            setTimeout('if(!isError)splash.style.display = "none";clearInterval(progressInterval)', 500);
+            setTimeout('setProgress(100);if(!isError)splash.style.display = "none";clearInterval(progressInterval)', 500);
            }
         ],
         print: function() {},
