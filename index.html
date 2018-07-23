@@ -175,8 +175,6 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
           if(text.startsWith("Downloading data")) {
             pr1 = text.split("(")[1]
             pr2 = pr1.split("/")
-            console.log(pr2[0] + "//" + pr2[1].replace(")", ""))
-            console.log(current + "/-/" + total)
             value = (pr2[0] / pr2[1].replace(")", "")) * prForDownload
             setProgress(prForUnpack + value)
           }
@@ -185,7 +183,7 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
         totalDependencies: 0,
         monitorRunDependencies: function(left) {
           this.totalDependencies = Math.max(this.totalDependencies, left);
-          setProgress(prForUnpack+prForDownload+prForDeps*(this.totalDependencies-left)/this.totalDependencies)
+          //setProgress(prForUnpack+prForDownload+prForDeps*(this.totalDependencies-left)/this.totalDependencies)
           Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.', 
             this.totalDependencies-left, this.totalDependencies);
 
