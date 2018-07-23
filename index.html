@@ -165,13 +165,7 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
           if (now - Module.setStatus.last < 1000) return; // if this is a progress update, skip it if too soon
 
             Module.setStatus.last = now;
-            //progressElement.value = current;
-            //progressElement.max = total;
-            progressElement.hidden = false;
           } else {
-            //progressElement.value = null;
-            //progressElement.max = null;
-            progressElement.hidden = true;
           }
           statusElement.innerHTML = text;
         },
