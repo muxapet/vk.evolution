@@ -131,7 +131,7 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
         postRun: [
           function() { 
             console.log("Run")
-            setTimeout('if(!isError)splash.style.display = "none"', 500);
+            setTimeout('if(!isError)splash.style.display = "none";console.log("RunRun!")', 500);
            }
         ],
         print: function() {},
