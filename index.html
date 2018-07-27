@@ -138,7 +138,8 @@ k.p.toString(16)+", data=0x"+p.toString(16)))}return m};t.L=function(a){this.j=a
           function() { 
             setProgress(prForDownload+prForDeps+prForUnpack);
             progressInterval = setInterval('addProgress('+((100-prForDeps-prForUnpack-prForDownload)/10)+')', 50);
-            setTimeout('setProgress(100);if(!isError)splash.style.display = "none";clearInterval(progressInterval)', 500);
+            //if(!isError)splash.style.display = "none";
+            setTimeout('setProgress(100);clearInterval(progressInterval)', 500);
            }
         ],
         print: function() {},
